@@ -29,6 +29,8 @@ export const CheckoutCart: React.FC<Props> = ({ className, items }) => {
       }
       removeCartItem(id);
     }
+
+    
   
     return (
     <WhiteBlock title="1. Cart">

@@ -8,10 +8,11 @@ import { useRouter } from "next/navigation";
 import { CheckoutCart, CheckoutDeliveryInfo, CheckoutPersonalForm } from "@/components/shared/checkout";
 import { checkoutFormSchema, CheckoutFormValues } from "@/components/shared/checkout/checkout-form-schema";
 import { LoadScript } from "@react-google-maps/api";
+import { useEffect } from "react";
 
 
 export default function CheckoutPage() {
-  const { totalAmount, items } = useCart();
+  const { totalAmount, items, loading } = useCart();
   const router = useRouter();
 
   const form = useForm<CheckoutFormValues>({
@@ -31,8 +32,12 @@ export default function CheckoutPage() {
     
   }
 
-  
-  
+  useEffect(() =>  {
+     console.log("totalAmount", totalAmount, "loading", loading);
+      if (totalAmount === 0 && !loading) {
+         router.push("/");
+      }
+  }, [totalAmount]);
   
   return (
     <Container className="mt-5">
