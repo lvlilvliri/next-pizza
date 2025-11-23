@@ -7,9 +7,12 @@ export const checkoutFormSchema = z.object({
   lastName: z
     .string()
     .min(2, { message: "Name must be at least 2 characters long" }),
-  email: z.string().min(1, { message: "Email is required" }).email({ message: "Invalid email address" }),
-  phone: z.string().min(10, { message: "Incorrect phone number" }),
-  address: z.string().min(5, { message: "Incorrect address" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email address" }),
+  phone: z.string().min(10, { message: "Phone is required" }),
+  address: z.string().min(12, { message: "Address is required" }),
   note: z.string().optional(),
 });
 

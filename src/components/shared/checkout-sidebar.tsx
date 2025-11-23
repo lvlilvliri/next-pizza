@@ -1,6 +1,7 @@
 import { Package, Truck, ArrowRight } from 'lucide-react';
 import React from 'react';
 import { Button } from '../ui';
+import { useFormContext } from 'react-hook-form';
 import { CheckoutItemDetails } from './checkout-item-details';
 import { WhiteBlock } from './white-block';
 import { CartStateItem } from '@/lib/get-cart-details';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const CheckoutSideBar: React.FC<Props> = ({ className, items, totalAmount, }) => {
+  const { formState } = useFormContext();
   const everyPrice = totalAmount + DELIVERY_PRICE;
   
   return (
@@ -46,7 +48,11 @@ export const CheckoutSideBar: React.FC<Props> = ({ className, items, totalAmount
         <Button
           type="submit"
           className="w-full h-14 rounded-2xl mt-6 text-base font-bold"
-          disabled={!items.length}
+          onClick={() => {
+           
+            console.log('react-hook-form errors:', formState?.errors);
+           
+          }}
         >
           Proceed to Checkout
           <ArrowRight className="w-5 ml-2" />

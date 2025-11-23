@@ -27,6 +27,7 @@ export const FormInput: React.FC<Props> = ({ mask, className, label, required, n
   
       const value = watch(name);
       const error = errors[name]?.message as string;
+
   return (
     <div className={className}>
       {label && (
@@ -37,7 +38,21 @@ export const FormInput: React.FC<Props> = ({ mask, className, label, required, n
 
       <div className="relative">
         {mask ? (
-          <FormMaskedInput className="h-12 text-md pr-10" mask={mask} {...register(name)} {...props} />
+          (() => {
+            const { ref: registerRef, onBlur: registerOnBlur } = register(name);
+            return (
+              <FormMaskedInput
+                className="h-12 text-md pr-10"
+                mask={mask}
+                inputRef={registerRef}
+                onBlur={registerOnBlur}
+                onAccept={(_val: string, maskRef: any) =>
+                  setValue(name, maskRef?.unmaskedValue ?? _val, { shouldValidate: true })
+                }
+                {...props}
+              />
+            );
+          })()
         ) : (
           <Input
             className="h-12 text-md pr-10"
