@@ -32,3 +32,4 @@ export { ClearButton } from "./clear-button";
 export { AddressInput } from "./address-input";
 export * from './form-components'
 export * from './modals'
+export * from './email-templates'

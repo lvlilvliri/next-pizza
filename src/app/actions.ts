@@ -5,6 +5,8 @@ import { prisma } from "../../prisma/prisma-client";
 
 import { cookies } from "next/headers";
 import { OrderStatus } from "@prisma/client";
+import { sendEmail } from "@/lib";
+import { PayOrderTemplate } from "@/components/shared";
 
 export async function createOrder(data: CheckoutFormValues) {
     try {
@@ -72,9 +74,21 @@ export async function createOrder(data: CheckoutFormValues) {
                 cartId: userCart.id,
             }
         });
+
+        await sendEmail(
+          data.email,
+          "Next Pizza - Order Confirmation #" + newOrder.id,
+          PayOrderTemplate({
+            orderId: newOrder.id,
+            totalAmount: newOrder.totalAmount,
+            paymentUrl: `https://resend.com/docs/send-with-nextjs`,
+          })
+        );
+
+        return `https://resend.com/docs/send-with-nextjs`;
             
     } catch (error) {
-        console.log("Error in createOrder action:", error);
+        console.log("[CREATE ORDER]:", error);
         throw error;
     }
 
