@@ -4,7 +4,7 @@ import React from 'react';
 interface Props {
   className?: string;
   title?: React.ReactNode;
-  price?: string;
+  price?: React.ReactNode;
 
 }
 
@@ -16,7 +16,7 @@ export const CheckoutItemDetails: React.FC<Props> = ({ className, title, price }
         <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
       </span>
 
-      <span className="font-bold text-lg">{price}₴</span>
+      <span className="font-bold text-lg flex">{price}</span>
     </div>
   );
 };

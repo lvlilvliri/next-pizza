@@ -17,7 +17,7 @@ export const CheckoutPersonalForm: React.FC<Props> = ({ className }) => {
     };
 
     return (
-      <WhiteBlock title="2. Personal details">
+      <WhiteBlock title="2. Personal details" className={className}>
         <div className="grid grid-cols-2 gap-5">
           <FormInput
             placeholder="Name"

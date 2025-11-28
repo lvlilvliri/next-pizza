@@ -17,7 +17,7 @@ export const CheckoutDeliveryInfo: React.FC<Props> = ({ className }) => {
   const { control } = useFormContext();
  
   return (
-    <WhiteBlock title="3. Delivery details">
+    <WhiteBlock title="3. Delivery details" className={className}>
       <div className="flex flex-col ">
         <Controller
           control={control}

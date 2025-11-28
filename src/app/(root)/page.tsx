@@ -1,13 +1,12 @@
 import {
-  Categories,
+ 
   Container,
-  SortPopup,
+ 
   Title,
   TopBar,
   Filters,
   ProductGroupList,
 } from "@/components/shared";
-import { prisma } from "../../../prisma/prisma-client";
 import { findPizzas, GetSearchParams } from "@/lib/find-pizzas";
 
 export default async function Home({

@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { prisma } from "../../../../../prisma/prisma-client";
 import {
   ChooseProduct,
-  ChooseProductModal,
   Container,
 } from "@/components/shared";
 

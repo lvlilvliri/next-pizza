@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
-import { PizzaImage, Title } from ".";
+import { Title } from ".";
 import { Button } from '../ui';
 
 

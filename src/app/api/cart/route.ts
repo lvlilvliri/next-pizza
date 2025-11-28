@@ -3,7 +3,6 @@ import { prisma } from "../../../../prisma/prisma-client";
 import crypto from "crypto";
 import { findOrCreateCart, updateCartTotalAmount } from "@/lib";
 import { CreateCartItemValues } from "../../../../shared/services/dto/cart.dto";
-import { ingredients } from "../../../../prisma/constants";
 
 
 export async function GET(req: NextRequest) {

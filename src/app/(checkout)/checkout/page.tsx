@@ -1,5 +1,6 @@
 'use client';
 
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutSideBar, Container, Title, } from "@/components/shared";
@@ -9,10 +10,16 @@ import { CheckoutCart, CheckoutDeliveryInfo, CheckoutPersonalForm } from "@/comp
 import { checkoutFormSchema, CheckoutFormValues } from "@/components/shared/checkout/checkout-form-schema";
 import { useEffect } from "react";
 import Script from "next/script";
+import { createOrder } from "@/app/actions";
+import toast from "react-hot-toast";
+import { set } from "zod";
+
+
 
 
 
 export default function CheckoutPage() {
+  const [ submitting, setSubmitting ] = React.useState(false);
   const { totalAmount, items, loading } = useCart();
   
   const router = useRouter();
@@ -29,10 +36,25 @@ export default function CheckoutPage() {
     },
   })
   
- const onSubmit = (data: CheckoutFormValues) => {
-  console.log('data');
-    console.log(data);
-    
+ const onSubmit = async (data: CheckoutFormValues) => {
+  try {
+    setSubmitting(true);
+    const url = await createOrder(data);
+    toast.success("Order placed successfully! You will be redirected to the order page...", {
+      icon: "✅",
+    });
+
+    if (url) {
+      location.href = url;
+    }
+  } catch (error) { 
+    console.log("Error creating order:", error);
+    setSubmitting(false);
+    toast.error("Failed to place order. Please try again.", {
+      icon: "❌",
+    });
+  }
+
   }
 
   useEffect(() =>  {
@@ -58,16 +80,20 @@ export default function CheckoutPage() {
           <div className="flex gap-40">
             {/* Left part */}
             <div className="flex flex-col gap-10 flex-1 mb-20">
-              <CheckoutCart items={items} />
+              <CheckoutCart items={items} loading={loading} />
 
-              <CheckoutPersonalForm />
+              <CheckoutPersonalForm
+                className={loading ? "opacity-40 pointer-events-none" : ``}
+              />
 
-              <CheckoutDeliveryInfo />
+              <CheckoutDeliveryInfo
+                className={loading ? "opacity-40 pointer-events-none" : ``}
+              />
             </div>
 
             {/* Right part */}
             <div className="w-[450px]">
-              <CheckoutSideBar totalAmount={totalAmount} items={items} />
+              <CheckoutSideBar  totalAmount={totalAmount} loading={loading || submitting} />
             </div>
           </div>
         </form>

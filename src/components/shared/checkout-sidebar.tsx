@@ -1,20 +1,22 @@
+'use client';
+
 import { Package, Truck, ArrowRight } from 'lucide-react';
 import React from 'react';
-import { Button } from '../ui';
+import { Button, Skeleton } from '../ui';
 import { useFormContext } from 'react-hook-form';
 import { CheckoutItemDetails } from './checkout-item-details';
 import { WhiteBlock } from './white-block';
-import { CartStateItem } from '@/lib/get-cart-details';
+
 
 const DELIVERY_PRICE = 100;
 
 interface Props {
   className?: string;
-  items: CartStateItem[];
   totalAmount: number;
+  loading?: boolean;
 }
 
-export const CheckoutSideBar: React.FC<Props> = ({ className, items, totalAmount, }) => {
+export const CheckoutSideBar: React.FC<Props> = ({ className, totalAmount, loading }) => {
   const { formState } = useFormContext();
   const everyPrice = totalAmount + DELIVERY_PRICE;
   
@@ -23,7 +25,13 @@ export const CheckoutSideBar: React.FC<Props> = ({ className, items, totalAmount
       <WhiteBlock className="sticky top-4 p-6">
         <div className="flex flex-col gap-1">
           <span className="text-xl">Order total:</span>
-          <span className="text-[34px] font-extrabold">{everyPrice}₴</span>
+          {loading ? (
+            <Skeleton className="h-12 w-32" />
+          ) : (
+            <span className="text-[34px] font-extrabold h-12 ">
+              {everyPrice}₴
+            </span>
+          )}
         </div>
 
         <CheckoutItemDetails
@@ -33,7 +41,13 @@ export const CheckoutSideBar: React.FC<Props> = ({ className, items, totalAmount
               Product price
             </div>
           }
-          price={String(totalAmount)}
+          price={
+            loading ? (
+              <Skeleton className="h-6 w-16" />
+            ) : (
+              `${String(totalAmount)} ₴`
+            )
+          }
         />
         <CheckoutItemDetails
           title={
@@ -42,16 +56,21 @@ export const CheckoutSideBar: React.FC<Props> = ({ className, items, totalAmount
               Delivery cost
             </div>
           }
-          price={String( DELIVERY_PRICE )}
+          price={
+            loading ? (
+              <Skeleton className="h-6 w-16" />
+            ) : (
+              `${String(DELIVERY_PRICE)} ₴`
+            )
+          }
         />
 
         <Button
           type="submit"
+          loading={loading}
           className="w-full h-14 rounded-2xl mt-6 text-base font-bold"
           onClick={() => {
-           
-            console.log('react-hook-form errors:', formState?.errors);
-           
+            console.log("react-hook-form errors:", formState?.errors);
           }}
         >
           Proceed to Checkout
