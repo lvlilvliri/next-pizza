@@ -2,11 +2,15 @@
 
 import { CheckoutFormValues } from "@/components/shared/checkout/checkout-form-schema";
 import { prisma } from "../../prisma/prisma-client";
-
 import { cookies } from "next/headers";
 import { OrderStatus } from "@prisma/client";
-import { sendEmail } from "@/lib";
-import { PayOrderTemplate } from "@/components/shared";
+import crypto from "crypto";
+import { PaymentData } from "../../@types/wayforpay";
+
+const MERCH_LOGIN = process.env.WAYFORPAY_MERCHANT_ACCOUNT;
+const MERCH_SECRET = process.env.WAYFORPAY_SECRET_KEY as string;
+const APP_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 export async function createOrder(data: CheckoutFormValues) {
     try {
@@ -60,32 +64,95 @@ export async function createOrder(data: CheckoutFormValues) {
             }
         });
 
-        await prisma.cart.update({
-            where: {
-                id: userCart.id,
-            },
-            data: {
-                totalAmount: 0,
-            }
+        // await prisma.cart.update({
+        //     where: {
+        //         id: userCart.id,
+        //     },
+        //     data: {
+        //         totalAmount: 0,
+        //     }
+        // });
+
+        // await prisma.cartItem.deleteMany({
+        //     where: {
+        //         cartId: userCart.id,
+        //     }
+        // });
+
+        // await sendEmail(
+        //   data.email,
+        //   "Next Pizza - Order Confirmation #" + newOrder.id,
+        //   PayOrderTemplate({
+        //     orderId: newOrder.id,
+        //     totalAmount: newOrder.totalAmount,
+        //     paymentUrl: `https://resend.com/docs/send-with-nextjs`,
+        //   })
+        // );
+
+        const orderReference =
+          newOrder.id.toString() + "_" + Math.floor(Date.now() / 1000);
+        const orderDate = Math.floor(Date.now() / 1000).toString();
+        // const amount = newOrder.totalAmount.toString();
+        const amount = String(1); // For testing purposes, set amount to 1 UAH
+        const currency = "UAH";
+        const merchantDomainName = new URL(APP_URL).host;
+        const serviceUrl = `${API_URL}/wayforpay/callback`;
+        const returnUrl = `${APP_URL}/payment/success`;
+
+        await prisma.order.update({
+          where: { id: newOrder.id },
+          data: { paymentId: orderReference },
         });
 
-        await prisma.cartItem.deleteMany({
-            where: {
-                cartId: userCart.id,
-            }
-        });
-
-        await sendEmail(
-          data.email,
-          "Next Pizza - Order Confirmation #" + newOrder.id,
-          PayOrderTemplate({
-            orderId: newOrder.id,
-            totalAmount: newOrder.totalAmount,
-            paymentUrl: `https://resend.com/docs/send-with-nextjs`,
-          })
+       
+        const productNames = userCart.cartItems.map(
+          (item) => item.productVariant.product.name
+        );
+        const productCounts = userCart.cartItems.map((item) =>
+          item.quantity.toString()
+        );
+        const productPrices = userCart.cartItems.map((item) =>
+          item.productVariant.price.toString()
         );
 
-        return `https://resend.com/docs/send-with-nextjs`;
+        
+         const stringToSign = [
+           MERCH_LOGIN,
+           merchantDomainName,
+           orderReference,
+           orderDate,
+           amount,
+           currency,
+           ...productNames,
+           ...productCounts,
+           ...productPrices,
+         ].join(";");
+
+        
+        const signature = crypto
+          .createHmac("md5", MERCH_SECRET)
+          .update(stringToSign)
+          .digest("hex");
+
+        
+         return {
+           merchantAccount: MERCH_LOGIN,
+           merchantDomainName,
+           merchantSignature: signature,
+           orderReference,
+           orderDate,
+           amount,
+           currency,
+           productName: productNames,
+           productCount: productCounts,
+           productPrice: productPrices,
+           clientFirstName: data.firstName,
+           clientLastName: data.lastName,
+           clientPhone: data.phone,
+           clientEmail: data.email,
+           serviceUrl,
+           returnUrl,
+         } as PaymentData;
             
     } catch (error) {
         console.log("[CREATE ORDER]:", error);

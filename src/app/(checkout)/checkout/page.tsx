@@ -12,6 +12,8 @@ import { useEffect } from "react";
 import Script from "next/script";
 import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
+import { openPaymentWidget } from "@/lib/pay";
+import { success } from "zod";
 
 
 
@@ -38,14 +40,18 @@ export default function CheckoutPage() {
  const onSubmit = async (data: CheckoutFormValues) => {
   try {
     setSubmitting(true);
-    const url = await createOrder(data);
-    toast.success("Order placed successfully! You will be redirected to the order page...", {
+    const paymentData = await createOrder(data);
+    console.log("Payment Data:", paymentData);
+    
+    await openPaymentWidget(paymentData);
+
+    console.log("Order paid successfully");
+
+    toast.success("Order paid successfully!", {
       icon: "✅",
     });
 
-    if (url) {
-      location.href = url;
-    }
+    
   } catch (error) { 
     console.log("Error creating order:", error);
     setSubmitting(false);
@@ -70,6 +76,11 @@ export default function CheckoutPage() {
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
         strategy="afterInteractive"
       />
+      <Script
+        id="wayforpay-widget" 
+        src="https://secure.wayforpay.com/server/pay-widget.js"
+        strategy="lazyOnload" 
+      />
       <Title
         text="Placing an order"
         className="font-extrabold mt-10 text-[36px]"
@@ -92,7 +103,10 @@ export default function CheckoutPage() {
 
             {/* Right part */}
             <div className="w-[450px]">
-              <CheckoutSideBar  totalAmount={totalAmount} loading={loading || submitting} />
+              <CheckoutSideBar
+                totalAmount={totalAmount}
+                loading={loading || submitting}
+              />
             </div>
           </div>
         </form>
