@@ -81,13 +81,22 @@ export async function POST(req: Request) {
       },
     });
 
+    console.log(`[WAYFORPAY CALLBACK] Order #${orderId} updated to status ${status}`);
+
     const order = await prisma.order.findFirst({ where: { id: orderId } });
 
     if (!order) {
       return NextResponse.json({ message: "Order not found" }, { status: 404 });
     }
 
-    const items = order.items as unknown as CartItemDTO[];
+    // Items are stored as serialized JSON in the DB, so parse if needed before using.
+    const parsedItems =
+      typeof order.items === "string"
+        ? (JSON.parse(order.items) as unknown)
+        : (order.items as unknown);
+    const items = Array.isArray(parsedItems)
+      ? (parsedItems as CartItemDTO[])
+      : [];
 
     if (status === OrderStatus.IN_PROGRESS) {
       await sendEmail(

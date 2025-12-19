@@ -30,6 +30,7 @@ export { RequiredSymbol } from "./required-symbol";
 export { ErrorText } from "./error-text";
 export { ClearButton } from "./clear-button";
 export { AddressInput } from "./address-input";
-export * from './form-components'
-export * from './modals'
-export * from './email-templates'
+export { ProfileButton } from "./profile-button";
+export * from "./form-components";
+export * from "./modals";
+export * from "./email-templates";

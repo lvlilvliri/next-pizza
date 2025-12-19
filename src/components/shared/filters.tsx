@@ -28,6 +28,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isMounted = React.useRef(false);
 
   const { ingredients, loading } = useFilterIngredients();
 
@@ -57,18 +58,22 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
   useDebounce(
     () => {
-      const query = qs.stringify(
-        {
-          pizzaTypes: Array.from(pizzaTypes),
-          sizes: Array.from(sizes),
-          priceFrom: prices.priceFrom,
-          priceTo: prices.priceTo,
-          selectedValues: Array.from(selectedValues),
-        },
-        { arrayFormat: "comma" }
-      );
+      if (isMounted.current) {
+        const query = qs.stringify(
+          {
+            pizzaTypes: Array.from(pizzaTypes),
+            sizes: Array.from(sizes),
+            priceFrom: prices.priceFrom,
+            priceTo: prices.priceTo,
+            selectedValues: Array.from(selectedValues),
+          },
+          { arrayFormat: "comma" }
+        );
 
-      router.push(`?${query}`, { scroll: false });
+        router.push(`?${query}`, { scroll: false });
+      }
+
+      isMounted.current = true;
     },
     250,
     [pizzaTypes, sizes, prices, selectedValues]

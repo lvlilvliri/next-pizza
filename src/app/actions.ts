@@ -7,10 +7,13 @@ import { OrderStatus } from "@prisma/client";
 import crypto from "crypto";
 import { PaymentData } from "../../@types/wayforpay";
 
+
 const MERCH_LOGIN = process.env.WAYFORPAY_MERCHANT_ACCOUNT;
 const MERCH_SECRET = process.env.WAYFORPAY_SECRET_KEY as string;
-const APP_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const APP_URL = "https://gold-deer-drive.loca.lt";
+const API_URL = "https://gold-deer-drive.loca.lt";
+
+console.log(API_URL, APP_URL);
 
 export async function createOrder(data: CheckoutFormValues) {
     try {
@@ -96,8 +99,10 @@ export async function createOrder(data: CheckoutFormValues) {
         const amount = String(1); // For testing purposes, set amount to 1 UAH
         const currency = "UAH";
         const merchantDomainName = new URL(APP_URL).host;
-        const serviceUrl = `${API_URL}/wayforpay/callback`;
-        const returnUrl = `${APP_URL}/payment/success`;
+        const serviceUrl = `${API_URL}/api/wayforpay/callback`;
+        const returnUrl = `${APP_URL}/?paid`;
+
+        console.log(returnUrl, serviceUrl);
 
         await prisma.order.update({
           where: { id: newOrder.id },
