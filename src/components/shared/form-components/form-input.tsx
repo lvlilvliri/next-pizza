@@ -1,12 +1,12 @@
-"use client"; 
+"use client";
 
-import React from 'react';
-import { RequiredSymbol } from '../required-symbol';
-import { Input } from '@/components/ui';
-import { ErrorText } from '../error-text';
-import { ClearButton } from '../clear-button';
-import { useFormContext } from 'react-hook-form';
-import { FormMaskedInput } from './form-masked-input';
+import React, { useState } from "react";
+import { RequiredSymbol } from "../required-symbol";
+import { Input } from "@/components/ui";
+import { ErrorText } from "../error-text";
+import { ClearButton } from "../clear-button";
+import { useFormContext } from "react-hook-form";
+import { FormMaskedInput } from "./form-masked-input";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -14,19 +14,32 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
   className?: string;
   mask?: string;
-  lazy?: boolean
+  lazy?: boolean;
 }
 
-export const FormInput: React.FC<Props> = ({ mask, className, label, required, name, ...props }) => {
+export const FormInput: React.FC<Props> = ({
+  mask,
+  className,
+  label,
+  required,
+  name,
+  ...props
+}) => {
   const {
-        register,
-        formState: { errors },
-        watch,
-        setValue
-      } = useFormContext(); 
-  
-      const value = watch(name);
-      const error = errors[name]?.message as string;
+    register,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useFormContext();
+
+  const value = watch(name);
+  const error = errors[name]?.message as string;
+
+  const [lazy, setLazy] = useState(true);
+
+  const onFocus = () => {
+    setLazy(false);
+  };
 
   return (
     <div className={className}>
@@ -47,9 +60,13 @@ export const FormInput: React.FC<Props> = ({ mask, className, label, required, n
                 inputRef={registerRef}
                 onBlur={registerOnBlur}
                 onAccept={(_val: string, maskRef: any) =>
-                  setValue(name, maskRef?.unmaskedValue ?? _val, { shouldValidate: true })
+                  setValue(name, maskRef?.unmaskedValue ?? _val, {
+                    shouldValidate: true,
+                  })
                 }
                 {...props}
+                onFocus={onFocus}
+                lazy={lazy}
               />
             );
           })()

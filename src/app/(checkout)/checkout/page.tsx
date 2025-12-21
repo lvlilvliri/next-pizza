@@ -1,32 +1,36 @@
-'use client';
+"use client";
 
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckoutSideBar, Container, Title, } from "@/components/shared";
+import { CheckoutSideBar, Container, Title } from "@/components/shared";
 import { useCart } from "../../../../shared/hooks";
 import { useRouter } from "next/navigation";
-import { CheckoutCart, CheckoutDeliveryInfo, CheckoutPersonalForm } from "@/components/shared/checkout";
-import { checkoutFormSchema, CheckoutFormValues } from "@/components/shared/checkout/checkout-form-schema";
+import {
+  CheckoutCart,
+  CheckoutDeliveryInfo,
+  CheckoutPersonalForm,
+} from "@/components/shared/checkout";
+import {
+  checkoutFormSchema,
+  CheckoutFormValues,
+} from "@/components/shared/checkout/checkout-form-schema";
 import { useEffect } from "react";
 import Script from "next/script";
 import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
 import { openPaymentWidget } from "@/lib/pay";
-import { success } from "zod";
-
-
-
-
+import { useSession } from "next-auth/react";
 
 export default function CheckoutPage() {
-  const [ submitting, setSubmitting ] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
   const { totalAmount, items, loading } = useCart();
-  
+  const { data: session } = useSession();
+
   const router = useRouter();
 
   const form = useForm<CheckoutFormValues>({
-    resolver:  zodResolver(checkoutFormSchema),
+    resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -35,40 +39,36 @@ export default function CheckoutPage() {
       address: "",
       note: "",
     },
-  })
-  
- const onSubmit = async (data: CheckoutFormValues) => {
-  try {
-    setSubmitting(true);
-    const paymentData = await createOrder(data);
-    console.log("Payment Data:", paymentData);
-    
-    await openPaymentWidget(paymentData);
+  });
 
-    console.log("Order paid successfully");
+  const onSubmit = async (data: CheckoutFormValues) => {
+    try {
+      setSubmitting(true);
+      const paymentData = await createOrder(data);
 
-    toast.success("Order paid successfully!", {
-      icon: "✅",
-    });
+      await openPaymentWidget(paymentData);
 
-    
-  } catch (error) { 
-    console.log("Error creating order:", error);
-    setSubmitting(false);
-    toast.error("Failed to place order. Please try again.", {
-      icon: "❌",
-    });
-  }
+      console.log("Order paid successfully");
 
-  }
+      toast.success("Order paid successfully!", {
+        icon: "✅",
+      });
+    } catch (error) {
+      console.log("Error creating order:", error);
+      setSubmitting(false);
+      toast.error("Failed to place order. Please try again.", {
+        icon: "❌",
+      });
+    }
+  };
 
-  useEffect(() =>  {
-     console.log("totalAmount", totalAmount, "loading", loading);
-      if (totalAmount === 0 && !loading) {
-         router.push("/");
-      }
+  useEffect(() => {
+    console.log("totalAmount", totalAmount, "loading", loading);
+    if (totalAmount === 0 && !loading) {
+      router.push("/");
+    }
   }, [totalAmount]);
-  
+
   return (
     <Container className="mt-5">
       <Script
@@ -77,9 +77,9 @@ export default function CheckoutPage() {
         strategy="afterInteractive"
       />
       <Script
-        id="wayforpay-widget" 
+        id="wayforpay-widget"
         src="https://secure.wayforpay.com/server/pay-widget.js"
-        strategy="lazyOnload" 
+        strategy="lazyOnload"
       />
       <Title
         text="Placing an order"

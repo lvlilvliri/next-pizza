@@ -1,4 +1,5 @@
 "use client";
+
 import { cn } from "@/lib/utils";
 import React from "react";
 import Image from "next/image";
@@ -12,6 +13,7 @@ import {
 } from "./index";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface Props {
   className?: string;
@@ -24,16 +26,25 @@ export const Header: React.FC<Props> = ({
   hasSearch = true,
   hasCartButton = true,
 }) => {
+  const router = useRouter();
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
   const searchParams = useSearchParams();
 
   React.useEffect(() => {
+    let toastMessage = "";
+
     if (searchParams.has("paid")) {
-      toast.success(
-        "Order paid successfully! Information has been sent to your email.",
-        { duration: 5000 }
-      );
+      toastMessage = "Payment was successful! 🎉";
+    }
+
+    if (searchParams.has("verified")) {
+      toastMessage = "Email verified successfully! ✅";
+    }
+
+    if (toastMessage) {
+      router.replace("/");
+      toast.success(toastMessage, { duration: 5000 });
     }
   }, []);
 

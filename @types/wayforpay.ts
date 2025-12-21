@@ -26,6 +26,8 @@ export type PaymentData = {
   clientPhone: string;
   returnUrl?: string;
   serviceUrl?: string;
+  paymentSystems?: string;
+  defaultPaymentSystem?: string;
 };
 
 export type PaymentCallbackData = {
@@ -40,6 +42,5 @@ export type PaymentCallbackData = {
   processingDate?: string;
   merchantSignature: string;
 };
-
 
 export type WayforpayCallbackBody = PaymentCallbackData;

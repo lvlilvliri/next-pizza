@@ -1,10 +1,7 @@
 import { PaymentData } from "../../@types/wayforpay";
 
-
-
 export const openPaymentWidget = (paymentData: PaymentData): Promise<void> => {
   return new Promise((resolve, reject) => {
-    
     if (
       typeof window === "undefined" ||
       // @ts-ignore
@@ -32,10 +29,10 @@ export const openPaymentWidget = (paymentData: PaymentData): Promise<void> => {
         clientLastName: paymentData.clientLastName,
         clientEmail: paymentData.clientEmail,
         clientPhone: paymentData.clientPhone,
-        // returnUrl: куда вернуть пользователя после оплаты (страница успеха/ошибки)
         returnUrl: paymentData.returnUrl,
-        // serviceUrl: серверный callback WayForPay -> ваш бекенд
         serviceUrl: paymentData.serviceUrl,
+        paymentSystems: paymentData.paymentSystems,
+        defaultPaymentSystem: paymentData.defaultPaymentSystem,
         language: "UA",
       },
       (response: any) => {
@@ -43,7 +40,7 @@ export const openPaymentWidget = (paymentData: PaymentData): Promise<void> => {
       },
       (response: any) => {
         console.error("WayForPay declined payment", response);
-        reject(new Error("Оплата отклонена"));
+        reject(new Error("Payment was declined."));
       },
       (response: any) => {
         console.log("Pending:", response);

@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import React from "react";
 import { set } from "zod";
 import { LoginForm } from "./forms/login-form";
+import { RegisterForm } from "./forms/register-form";
 
 interface Props {
   className?: string;
@@ -28,7 +29,7 @@ export const AuthModal: React.FC<Props> = ({ className, open, onClose }) => {
         {type === "login" ? (
           <LoginForm onClose={handleClose} />
         ) : (
-          <div>Register Form</div>
+          <RegisterForm onClose={handleClose} />
         )}
         <hr />
         <div className="flex gap-2">
