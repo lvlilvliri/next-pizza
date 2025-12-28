@@ -1,10 +1,17 @@
-import { categories, ingredients, products } from "./constants";
+import { categories, ingredients, products, stories } from "./constants";
 import { prisma } from "./prisma-client";
 import { hashSync } from "bcrypt";
 import { Prisma } from "@prisma/client";
 
 const randomDecimalNumber = (min: number, max: number) => {
   return +(Math.random() * (max - min) * 10 + min * 10) / 10;
+};
+
+const CDN_BASE = process.env.NEXT_PUBLIC_IMAGE_CDN;
+
+const withCdn = (url: string) => {
+  if (!CDN_BASE) return url;
+  return `${CDN_BASE}${encodeURIComponent(url)}`;
 };
 
 const generateProductItem = ({
@@ -151,32 +158,7 @@ async function up() {
   });
 
   await prisma.story.createMany({
-    data: [
-      {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/xep/xzh/zmc/cr4gcw0aselwvf628pbmj3j/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=3101815496",
-      },
-      {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/km2/9gf/jrn/sb7ls1yj9fe5bwvuwgym73e/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=3074015640",
-      },
-      {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/quw/acz/zf5/zu37vankpngyccqvgzbohj1/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=1336215020",
-      },
-      {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/7oc/5nf/ipn/oznceu2ywv82tdlnpwriyrq/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=38903958",
-      },
-      {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/q0t/flg/0ph/xt67uw7kgqe9bag7spwkkyw/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=2941222737",
-      },
-      {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/lza/rsp/2gc/xrar8zdspl4saq4uajmso38/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=4207486284",
-      },
-    ],
+    data: stories,
   });
 
   await prisma.storyItems.createMany({
