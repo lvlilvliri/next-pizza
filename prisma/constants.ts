@@ -1,3 +1,10 @@
+const CDN_BASE = process.env.NEXT_PUBLIC_IMAGE_CDN;
+
+const withCdn = (url: string) => {
+  if (!CDN_BASE) return url;
+  return `${CDN_BASE}${encodeURIComponent(url)}`;
+};
+
 export const categories = [
   { name: "Пиццы" },
   { name: "Завтрак" },
@@ -6,7 +13,7 @@ export const categories = [
   { name: "Напитки" },
 ];
 
-export const ingredients = [
+export const rawIngredients = [
   {
     name: "Сырный бортик",
     price: 179,
@@ -111,7 +118,7 @@ export const ingredients = [
   },
 ].map((obj, index) => ({ id: index + 1, ...obj }));
 
-export const products = [
+export const rawProducts = [
   {
     name: "Омлет с ветчиной и грибами",
     imageUrl:
@@ -215,3 +222,13 @@ export const products = [
     categoryId: 5,
   },
 ];
+
+export const ingredients = rawIngredients.map((obj) => ({
+  ...obj,
+  imageUrl: withCdn(obj.imageUrl),
+}));
+
+export const products = rawProducts.map((obj) => ({
+  ...obj,
+  imageUrl: withCdn(obj.imageUrl),
+}));
