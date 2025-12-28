@@ -9,7 +9,7 @@ import { PaymentData } from "../../@types/wayforpay";
 import { getUserSession } from "@/lib/get-user-session";
 import { hashSync } from "bcrypt";
 import { sendEmail } from "@/lib/send-email";
-import { VerificationTemplate } from "@/components/shared";
+import { VerificationTemplate } from "@/components/shared/email-templates";
 
 const MERCH_LOGIN = process.env.WAYFORPAY_MERCHANT_ACCOUNT;
 const MERCH_SECRET = process.env.WAYFORPAY_SECRET_KEY as string;

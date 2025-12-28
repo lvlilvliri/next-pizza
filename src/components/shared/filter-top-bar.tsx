@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 import { useFiltersStore } from "@/../shared/store/filters";
 import { useFilterIngredients } from "@/../shared/hooks/use-filter-ingredients";
@@ -19,7 +19,6 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
     togglePizzaType,
     toggleSize,
     setPrice,
-    addSelectedValue,
     removeSelectedValue,
   } = useFiltersStore();
 
@@ -37,7 +36,7 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
     filters.push({
       label: `Цена: ${prices.priceFrom} – ${prices.priceTo} грн`,
       onRemove: () => {
-        setPrice("priceFrom", 0), setPrice("priceTo", 500);
+        (setPrice("priceFrom", 0), setPrice("priceTo", 500));
       },
     });
   }

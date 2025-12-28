@@ -59,6 +59,7 @@ export const FormInput: React.FC<Props> = ({
                 mask={mask}
                 inputRef={registerRef}
                 onBlur={registerOnBlur}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onAccept={(_val: string, maskRef: any) =>
                   setValue(name, maskRef?.unmaskedValue ?? _val, {
                     shouldValidate: true,

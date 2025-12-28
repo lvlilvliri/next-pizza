@@ -1,15 +1,12 @@
 import { FormInput } from "@/components/shared/form-components";
-import React, { useState } from "react";
+import React from "react";
 import { WhiteBlock } from "../white-block";
-import { useSession } from "next-auth/react";
 
 interface Props {
   className?: string;
 }
 
 export const CheckoutPersonalForm: React.FC<Props> = ({ className }) => {
-  const { data: session } = useSession();
-
   return (
     <WhiteBlock title="2. Personal details" className={className}>
       <div className="grid grid-cols-2 gap-5">

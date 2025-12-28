@@ -1,31 +1,36 @@
-import { cn } from '@/lib/utils';
-import React from 'react';
-import * as CartItem from './cart-item-details'
-import { CartItemProps } from './cart-item-details/cart-item-details.types';
-import { CountButton } from './count-button';
-import { X } from 'lucide-react';
-import { useCartStore } from '../../../shared/store/cart';
+import { cn } from "@/lib/utils";
+import React from "react";
+import * as CartItem from "./cart-item-details";
+import { CartItemProps } from "./cart-item-details/cart-item-details.types";
+import { CountButton } from "./count-button";
+import { X } from "lucide-react";
+import { useCartStore } from "../../../shared/store/cart";
 
-interface Props extends CartItemProps{
-  onClickCountButton?: (type: 'plus' | 'minus') => void
-  onClickRemoveButton?: () => void
+interface Props extends CartItemProps {
+  onClickCountButton?: (type: "plus" | "minus") => void;
+  onClickRemoveButton?: () => void;
   className?: string;
 }
 
 export const CartDrawerItem: React.FC<Props> = ({
   className,
-  onClickCountButton, imageUrl,
+  onClickCountButton,
+  imageUrl,
   onClickRemoveButton,
-  id,
   name,
   price,
   quantity,
   details,
-  disabled
+  disabled,
 }) => {
-  const loading = useCartStore((s) => s.loading);
   return (
-    <div className={cn("flex flex-col bg-white p-5 gap-2 relative", {'opacity-50 pointer-events-none': disabled}  , className)}>
+    <div
+      className={cn(
+        "flex flex-col bg-white p-5 gap-2 relative",
+        { "opacity-50 pointer-events-none": disabled },
+        className
+      )}
+    >
       <div className="flex gap-5">
         <CartItem.Image src={imageUrl} />
 
@@ -40,11 +45,15 @@ export const CartDrawerItem: React.FC<Props> = ({
             <CartItem.Price price={price} />
           </div>
 
-          <CountButton value={quantity} onClick={onClickCountButton}/>
+          <CountButton value={quantity} onClick={onClickCountButton} />
         </div>
       </div>
 
-      <X className={cn("absolute top-5 right-5 cursor-pointer", className)} size={16}  onClick={onClickRemoveButton} />
+      <X
+        className={cn("absolute top-5 right-5 cursor-pointer", className)}
+        size={16}
+        onClick={onClickRemoveButton}
+      />
     </div>
   );
 };

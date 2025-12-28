@@ -30,7 +30,6 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   limit = 5,
   searchInputPlaceholder = "Поиск...",
   onClickCheckbox,
-  defaultValue,
   selectedValues,
   name,
 }) => {
@@ -44,8 +43,8 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 
         {...Array(limit)
           .fill(0)
-          .map((_, i) => <Skeleton className="h-6 rounded-[8px] mb-4" />)}
-        <Skeleton className="h-6 rounded-[8px] mb-4 w-28" />
+          .map((_, i) => <Skeleton className="h-6 rounded-[8px] mb-4" key={i}/>)}
+        <Skeleton className="h-6 rounded-[8px] mb-4 w-28"  />
       </div>
     );
   }
@@ -75,7 +74,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
       )}
 
       <div className="flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar">
-        {list.map((items, i) => (
+        {list.map((items) => (
           <FilterCheckbox
             onCheckedChange={() => onClickCheckbox?.(items.value)}
             checked={selectedValues.has(items.value)}

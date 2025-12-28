@@ -1,10 +1,11 @@
+"use client";
+
 import React from "react";
-import { Form, FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { formLoginSchema, FormLoginSchemaType } from "./schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui";
 import { Title, FormInput } from "@/components/shared/";
-import { ca } from "zod/v4/locales";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 

@@ -42,6 +42,8 @@ export default function CheckoutPage() {
     },
   });
 
+  const { setValue } = form;
+
   React.useEffect(() => {
     async function fetchUserInfo() {
       const data = await Api.auth.getMe();
@@ -55,7 +57,7 @@ export default function CheckoutPage() {
     if (session?.user) {
       fetchUserInfo();
     }
-  }, [session]);
+  }, [session, setValue]);
 
   const onSubmit = async (data: CheckoutFormValues) => {
     try {
@@ -83,7 +85,7 @@ export default function CheckoutPage() {
     if (totalAmount === 0 && !loading) {
       router.push("/");
     }
-  }, [totalAmount]);
+  }, [totalAmount, loading, router]);
 
   return (
     <Container className="mt-5">

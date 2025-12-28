@@ -4,7 +4,7 @@ import { prisma } from "../../../../../prisma/prisma-client";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const user = await getUserSession();
     if (!user) {
@@ -21,6 +21,8 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    return new NextResponse("Error fetching user data", { status: 500 });
+    return new NextResponse("Error fetching user data " + error, {
+      status: 500,
+    });
   }
 }

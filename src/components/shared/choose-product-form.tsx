@@ -1,29 +1,31 @@
-import { cn } from '@/lib/utils';
-import React from 'react';
+import { cn } from "@/lib/utils";
+import React from "react";
 import { Title } from ".";
-import { Button } from '../ui';
-
-
+import { Button } from "../ui";
 
 interface Props {
   className?: string;
   imageUrl: string;
   name: string;
-  items?: any[];
   onClickAddCart: () => void;
   price: number;
   loading?: boolean;
 }
 
-export const ChooseProductForm: React.FC<Props> = ({loading, price, className, imageUrl, name, onClickAddCart, items }) => {
-    
-    const textDetails = 'some description';
+export const ChooseProductForm: React.FC<Props> = ({
+  loading,
+  price,
+  className,
+  imageUrl,
+  name,
+  onClickAddCart,
+}) => {
+  const textDetails = "some description";
 
-     const handleClickAdd = () => {
-    
-      onClickAddCart?.();
-    }
-    
+  const handleClickAdd = () => {
+    onClickAddCart?.();
+  };
+
   return (
     <div className={cn("flex flex-1", className)}>
       <div className="flex items-center justify-center flex-1 relative w-full">
@@ -37,11 +39,14 @@ export const ChooseProductForm: React.FC<Props> = ({loading, price, className, i
         <Title text={name} size="md" className="font-extrabold mb-1" />
         <p className="text-gray-400">{textDetails}</p>
 
-        <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" onClick={handleClickAdd} loading={loading}>
+        <Button
+          className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
+          onClick={handleClickAdd}
+          loading={loading}
+        >
           Добавить в корзину за {price} $
         </Button>
       </div>
     </div>
   );
 };
-

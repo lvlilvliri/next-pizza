@@ -4,13 +4,13 @@ export const openPaymentWidget = (paymentData: PaymentData): Promise<void> => {
   return new Promise((resolve, reject) => {
     if (
       typeof window === "undefined" ||
-      // @ts-ignore
+      // @ts-expect-error - wayforpay is loaded via external script
       typeof window.Wayforpay === "undefined"
     ) {
       return reject(new Error("Wayforpay script is not available on window."));
     }
 
-    // @ts-ignore
+    // @ts-expect-error - wayforpay is loaded via external script
     const wayforpay = new window.Wayforpay();
 
     wayforpay.run(
@@ -35,13 +35,16 @@ export const openPaymentWidget = (paymentData: PaymentData): Promise<void> => {
         defaultPaymentSystem: paymentData.defaultPaymentSystem,
         language: "UA",
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (response: any) => {
         resolve(response);
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (response: any) => {
         console.error("WayForPay declined payment", response);
         reject(new Error("Payment was declined."));
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (response: any) => {
         console.log("Pending:", response);
       }

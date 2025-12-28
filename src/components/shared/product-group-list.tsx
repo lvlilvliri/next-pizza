@@ -25,7 +25,7 @@ export const ProductGroupList: React.FC<Props> = ({
 }) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const intersectionRef = React.useRef(null);
-  // @ts-expect-error
+  // @ts-expect-error - useIntersection types are wrong
   const intersection = useIntersection(intersectionRef, {
     threshold: 0.4,
   });

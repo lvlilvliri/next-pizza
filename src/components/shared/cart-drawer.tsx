@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import Image from "next/image";
-import React, { Children } from 'react';
+import React from "react";
 import {
   Sheet,
   SheetContent,
@@ -11,27 +11,32 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import Link from 'next/link';
-import { Button } from '../ui';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { CartDrawerItem } from './cart-drawer-item';
+import Link from "next/link";
+import { Button } from "../ui";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { CartDrawerItem } from "./cart-drawer-item";
 import { useCart } from "../../../shared/hooks";
-import { getCartItemDetails } from '@/lib';
-import { PizzaSize, PizzaType } from '../../../shared/constants/pizza';
+import { getCartItemDetails } from "@/lib";
+import { PizzaSize, PizzaType } from "../../../shared/constants/pizza";
 import { Title } from ".";
 import { cn } from "@/lib/utils";
-
-
 
 interface Props {
   className?: string;
 }
 
-export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({children, className }) => {
-  const { totalAmount, items, updateItemQuantity, removeCartItem} = useCart();
-  const [redirecting , setRedirecting] = React.useState(false);
-  const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
-    const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
+  children,
+  className,
+}) => {
+  const { totalAmount, items, updateItemQuantity, removeCartItem } = useCart();
+  const [redirecting, setRedirecting] = React.useState(false);
+  const onClickCountButton = (
+    id: number,
+    quantity: number,
+    type: "plus" | "minus"
+  ) => {
+    const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
     updateItemQuantity(id, newQuantity);
   };
   return (
@@ -124,7 +129,12 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({children, 
                     </div>
 
                     <Link href="/checkout">
-                      <Button className="w-full h-12 text-base" type="submit" loading={redirecting} onClick={() => setRedirecting(true)}>
+                      <Button
+                        className="w-full h-12 text-base"
+                        type="submit"
+                        loading={redirecting}
+                        onClick={() => setRedirecting(true)}
+                      >
                         Перейти в корзину <ArrowRight className="w-5 ml-2" />
                       </Button>
                     </Link>
@@ -138,4 +148,3 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({children, 
     </div>
   );
 };
-
