@@ -42,7 +42,7 @@ export const ProductCard: React.FC<Props> = ({
 
           <Button variant="secondary" className="text-base font-bold">
             <Plus size="20px" className="mr-1" />
-            Добавить
+            Add to cart
           </Button>
         </div>
       </Link>

@@ -59,6 +59,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
   useDebounce(
     () => {
       if (isMounted.current) {
+        const sortBy = searchParams.get("sortBy");
         const query = qs.stringify(
           {
             pizzaTypes: Array.from(pizzaTypes),
@@ -66,6 +67,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             priceFrom: prices.priceFrom,
             priceTo: prices.priceTo,
             selectedValues: Array.from(selectedValues),
+            ...(sortBy ? { sortBy } : {}),
           },
           { arrayFormat: "comma" }
         );
@@ -81,10 +83,10 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      <Title text="Фильтрация" size="sm" className="font-bold mb-5" />
+      <Title text="Filters" size="sm" className="font-bold mb-5" />
 
       <CheckboxFiltersGroup
-        title="Тип теста"
+        title="Pizza Types"
         name="pizzaTypes"
         className="mb-5"
         onClickCheckbox={togglePizzaType}
@@ -96,7 +98,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
       />
 
       <CheckboxFiltersGroup
-        title="Размеры"
+        title="Sizes"
         className="mb-5"
         onClickCheckbox={toggleSize}
         name="sizes"
@@ -109,7 +111,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
       />
 
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
-        <p className="font-bold mb-3">Цена от и до:</p>
+        <p className="font-bold mb-3">Price from and to:</p>
         <div className="flex gap-3 mb-5">
           <Input
             type="number"
@@ -134,13 +136,13 @@ export const Filters: React.FC<Props> = ({ className }) => {
           step={10}
           value={[prices.priceFrom || 0, prices.priceTo || 500]}
           onValueChange={([priceFrom, priceTo]) => {
-            setPrice("priceFrom", priceFrom), setPrice("priceTo", priceTo);
+            (setPrice("priceFrom", priceFrom), setPrice("priceTo", priceTo));
           }}
         />
       </div>
 
       <CheckboxFiltersGroup
-        title="Ингредиенты"
+        title="Ingredients"
         className="mt-5"
         limit={6}
         defaultItems={items.slice(0, 6)}

@@ -15,6 +15,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
   const [stories, setStories] = React.useState<IStory[]>([]);
   const [open, setOpen] = React.useState(false);
   const [selectedStory, setSelectedStory] = React.useState<IStory>();
+  const [storySize, setStorySize] = React.useState({ width: 520, height: 800 });
 
   React.useEffect(() => {
     async function fetchStories() {
@@ -32,9 +33,48 @@ export const Stories: React.FC<Props> = ({ className }) => {
       setOpen(true);
     }
   };
+
+  React.useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  React.useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const updateSize = () => {
+      const maxWidth = 520;
+      const maxHeight = 800;
+      const width = Math.min(maxWidth, Math.max(280, window.innerWidth - 32));
+      const height = Math.min(
+        maxHeight,
+        Math.max(320, window.innerHeight - 48)
+      );
+
+      setStorySize({ width, height });
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, [open]);
+
   return (
     <Container
-      className={cn("flex items-center justify-between gap-2 my-10", className)}
+      className={cn(
+        "flex items-center justify-between gap-2 my-10 ",
+        className
+      )}
     >
       {stories.length === 0 &&
         [...Array(6)].map((_, index) => (
@@ -56,13 +96,20 @@ export const Stories: React.FC<Props> = ({ className }) => {
       ))}
 
       {open && (
-        <div className="absolute left-0 top-0 w-full h-full bg-black/80 flex items-center justify-center z-30 ">
-          <div className="relative" style={{ width: 520 }}>
+        <div
+          className="fixed inset-0 z-30 flex items-center justify-center bg-black/80 px-4 py-6"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="relative"
+            style={{ width: storySize.width, height: storySize.height }}
+            onClick={(event) => event.stopPropagation()}
+          >
             <button
-              className="absolute -right-10 -top-5 z-30"
+              className="absolute -right-8 -top-8 z-30 rounded-full p-1"
               onClick={() => setOpen(false)}
             >
-              <X className="absolute top-0 right-0 w-8 h-8 text-white/50" />
+              <X className="w-8 h-8 text-white/50" />
             </button>
 
             <ReactStories
@@ -72,8 +119,8 @@ export const Stories: React.FC<Props> = ({ className }) => {
                 []
               }
               defaultInterval={3000}
-              width={520}
-              height={800}
+              width={storySize.width}
+              height={storySize.height}
             />
           </div>
         </div>

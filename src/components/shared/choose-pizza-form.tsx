@@ -1,15 +1,19 @@
-'use client'
+"use client";
 
 import { cn } from "@/lib/utils";
 import { Ingredient, ProductVariant } from "@prisma/client";
 import React from "react";
-import { IngredientList, PizzaImage, Title , ProductSelector} from ".";
+import { IngredientList, PizzaImage, Title, ProductSelector } from ".";
 import { Button } from "../ui";
-import { mapPizzaType, PizzaSize,  PizzaType, pizzaTypes } from "@/../shared/constants/pizza";
+import {
+  mapPizzaType,
+  PizzaSize,
+  PizzaType,
+  pizzaTypes,
+} from "@/../shared/constants/pizza";
 
-import {  totalProductPrice } from "@/lib/index";
+import { totalProductPrice } from "@/lib/index";
 import { usePizzaOptions } from "../../../shared/hooks";
-
 
 interface Props {
   className?: string;
@@ -52,7 +56,6 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   );
 
   const handleClickAdd = () => {
-    
     if (currentItemId) {
       onClickAddCart?.(currentItemId, Array.from(selectedIngredients));
     }
@@ -103,7 +106,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
           onClick={handleClickAdd}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
         >
-          Добавить в корзину за {totalPrice} $
+          Add to cart for {totalPrice} $
         </Button>
       </div>
     </div>

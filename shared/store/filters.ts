@@ -1,4 +1,3 @@
-import { useSearchParams } from "next/navigation";
 import { create } from "zustand";
 
 interface PriceRange {

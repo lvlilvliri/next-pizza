@@ -38,7 +38,7 @@ export const AddressInput: React.FC<Props> = ({ onChange, className }) => {
     <input
       ref={ref}
       type="text"
-      placeholder="Введите адрес"
+      placeholder="Enter your address"
       className={`border rounded-xl px-4 py-3 text-base ${className || ""}`}
       onChange={(e) => onChange(e.target.value)} // ручной ввод тоже работает
     />

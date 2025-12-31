@@ -70,7 +70,7 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
     <div className={cn("mt-4 inline-flex items-center gap-1", className)}>
       {filters.length > 0 && (
         <div className="flex gap-2 flex-wrap items-center">
-          <span className="font-bold text-ml">Выбранные фильтры:</span>
+          <span className="font-bold text-ml">Selected filters:</span>
           {filters.map((filter, idx) => (
             <div
               key={idx}
@@ -94,7 +94,7 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
             }}
             className="ml-3     text-sm text-primary font-bold flex "
           >
-            Сбросить фильтры
+            Reset filters
           </button>
         </div>
       )}

@@ -70,17 +70,17 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
 
                 <Title
                   size="sm"
-                  text="Корзина пустая"
+                  text="Cart is empty"
                   className="text-center font-bold my-2"
                 />
                 <p className="text-center text-neutral-500 mb-5">
-                  Добавьте хотя бы одну пиццу, чтобы совершить заказ
+                  Add at least one pizza <br /> to complete your order
                 </p>
 
                 <SheetClose>
                   <Button className="w-56 h-12 text-base" size="lg">
                     <ArrowLeft className="w-5 mr-2" />
-                    Вернуться назад
+                    Go back to shop
                   </Button>
                 </SheetClose>
               </div>
@@ -121,7 +121,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
                   <div className="w-full">
                     <div className="flex mb-4">
                       <span className="flex flex-1 text-lg text-neutral-500">
-                        Итого
+                        Total
                         <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
                       </span>
 
@@ -135,7 +135,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
                         loading={redirecting}
                         onClick={() => setRedirecting(true)}
                       >
-                        Перейти в корзину <ArrowRight className="w-5 ml-2" />
+                        Go to cart <ArrowRight className="w-5 ml-2" />
                       </Button>
                     </Link>
                   </div>

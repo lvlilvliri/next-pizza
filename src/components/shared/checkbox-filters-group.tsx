@@ -43,8 +43,10 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 
         {...Array(limit)
           .fill(0)
-          .map((_, i) => <Skeleton className="h-6 rounded-[8px] mb-4" key={i}/>)}
-        <Skeleton className="h-6 rounded-[8px] mb-4 w-28"  />
+          .map((_, i) => (
+            <Skeleton className="h-6 rounded-[8px] mb-4" key={i} />
+          ))}
+        <Skeleton className="h-6 rounded-[8px] mb-4 w-28" />
       </div>
     );
   }
@@ -93,7 +95,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
             onClick={() => setShowAll(!showAll)}
             className="mt-3 text-primary"
           >
-            {showAll ? "Скрыть" : "+ Показать все"}
+            {showAll ? "Hide" : "+ Show all"}
           </button>
         </div>
       )}

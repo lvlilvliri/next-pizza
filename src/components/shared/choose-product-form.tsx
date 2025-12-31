@@ -44,7 +44,7 @@ export const ChooseProductForm: React.FC<Props> = ({
           onClick={handleClickAdd}
           loading={loading}
         >
-          Добавить в корзину за {price} $
+          Add to cart for {price} $
         </Button>
       </div>
     </div>
