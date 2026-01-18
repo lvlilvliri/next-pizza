@@ -3,7 +3,11 @@
 import { cn } from "@/lib/utils";
 import { ArrowUpDown, Check } from "lucide-react";
 import React from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { DEFAULT_SORT, resolveSortValue, SORT_OPTIONS } from "@/lib/sort";
 
