@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React, { Suspense } from "react";
 import { Container } from "./container";
-import { Categories, FilterTopBar, SortPopup } from "./index";
+import { Categories, FilterTopBar, SortPopupWrapper } from "./index";
 import { Category } from "@prisma/client";
 import { findPizzas } from "@/lib";
 import { GetSearchParams } from "@/lib/find-pizzas";
@@ -30,7 +30,7 @@ export const TopBar: React.FC<Props> = async ({ className, searchParams }) => {
               )}
             />
           </Suspense>
-          <SortPopup />
+          <SortPopupWrapper />
         </div>
         <div>
           <FilterTopBar />

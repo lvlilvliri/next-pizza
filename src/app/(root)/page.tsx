@@ -2,7 +2,7 @@ import {
   Container,
   Title,
   TopBar,
-  Filters,
+  FiltersWrapper,
   Stories,
   ProductReady,
   TopbarSkeleton,
@@ -32,7 +32,7 @@ export default async function Home({
         <div className="flex gap-[60px]">
           {/* filtration */}
           <div className="w-[250px]">
-            <Filters />
+            <FiltersWrapper />
           </div>
           <Suspense fallback={<ProductsGroupListSkeleton />}>
             <ProductReady searchParams={searchParams} />
