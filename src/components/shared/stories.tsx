@@ -6,6 +6,7 @@ import { Container } from ".";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import ReactStories from "react-insta-stories";
+import toast from "react-hot-toast";
 
 interface Props {
   className?: string;
@@ -87,15 +88,15 @@ export const Stories: React.FC<Props> = ({ className }) => {
       {stories.map((story) => (
         <img
           key={story.id}
-          onClick={() => onClickStory(story)}
-          className="rounded-md cursor-pointer"
+          onClick={() => toast.error("Stories are unavailable now")}
+          className="rounded-md cursor-pointer object-cover w-[200px] h-[300px]"
           height={250}
           width={200}
           src={story.previewImageUrl}
         />
       ))}
 
-      {open && (
+      {/* {open && (
         <div
           className="fixed inset-0 z-30 flex items-center justify-center bg-black/80 px-4 py-6"
           onClick={() => setOpen(false)}
@@ -124,7 +125,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
             />
           </div>
         </div>
-      )}
+      )} */}
     </Container>
   );
 };

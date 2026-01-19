@@ -69,7 +69,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             selectedValues: Array.from(selectedValues),
             ...(sortBy ? { sortBy } : {}),
           },
-          { arrayFormat: "comma" }
+          { arrayFormat: "comma" },
         );
 
         router.push(`?${query}`, { scroll: false });
@@ -77,8 +77,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
       isMounted.current = true;
     },
-    250,
-    [pizzaTypes, sizes, prices, selectedValues]
+    100,
+    [pizzaTypes, sizes, prices, selectedValues],
   );
 
   return (

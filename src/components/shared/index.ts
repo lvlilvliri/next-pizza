@@ -33,8 +33,10 @@ export { AddressInput } from "./address-input";
 export { ProfileButton } from "./profile-button";
 export { InfoBlock } from "./info-block";
 export { Stories } from "./stories";
+export { ProductReady } from "./product-ready";
 
 export * from "./profile";
 export * from "./form-components";
 export * from "./modals";
 export * from "./email-templates";
+export * from "./skeletons";

@@ -3,29 +3,29 @@ import {
   Title,
   TopBar,
   Filters,
-  ProductGroupList,
   Stories,
+  ProductReady,
+  TopbarSkeleton,
+  ProductsGroupListSkeleton,
 } from "@/components/shared";
-import { findPizzas, GetSearchParams } from "@/lib/find-pizzas";
+import {} from "@/components/shared/skeletons/topbar-skeleton";
+import { GetSearchParams } from "@/lib/find-pizzas";
+import { Suspense } from "react";
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<GetSearchParams>;
 }) {
-  const resolvedSearchParams = await searchParams;
-  const categories = await findPizzas(resolvedSearchParams);
   return (
     <>
       <Container className="mt-10">
         <Title text="All products" size="lg" className="font-extrabold" />
       </Container>
 
-      <TopBar
-        categories={categories.filter(
-          (category) => category.products.length > 0
-        )}
-      />
+      <Suspense fallback={<TopbarSkeleton />}>
+        <TopBar searchParams={searchParams} />
+      </Suspense>
 
       <Stories />
       <Container className="pb-14 mt-10">
@@ -34,23 +34,9 @@ export default async function Home({
           <div className="w-[250px]">
             <Filters />
           </div>
-
-          {/* list items */}
-          <div className="flex-1">
-            <div className="flex flex-col gap-16">
-              {categories.map(
-                (category) =>
-                  category.products.length > 0 && (
-                    <ProductGroupList
-                      key={category.id}
-                      title={category.name}
-                      categoryId={category.id}
-                      items={category.products}
-                    />
-                  )
-              )}
-            </div>
-          </div>
+          <Suspense fallback={<ProductsGroupListSkeleton />}>
+            <ProductReady searchParams={searchParams} />
+          </Suspense>
         </div>
       </Container>
     </>

@@ -226,27 +226,27 @@ export const rawProducts = [
 export const rawStories = [
   {
     previewImageUrl:
-      "https://cdn.inappstory.ru/story/xep/xzh/zmc/cr4gcw0aselwvf628pbmj3j/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=3101815496",
+      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/stories-pizza-design-template-4ff0a23ee1d13a92b60f6680e58fa085_screen.jpg?ts=1637011817",
   },
   {
     previewImageUrl:
-      "https://cdn.inappstory.ru/story/km2/9gf/jrn/sb7ls1yj9fe5bwvuwgym73e/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=3074015640",
+      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/stories-pizza-delivery-design-template-4bb453a5fdf93a8f363899b00b77ac39_screen.jpg?ts=1637008325",
   },
   {
     previewImageUrl:
-      "https://cdn.inappstory.ru/story/quw/acz/zf5/zu37vankpngyccqvgzbohj1/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=1336215020",
+      "https://img.freepik.com/free-psd/food-menu-delicious-pizza-instagram-facebook-story-template_120329-6316.jpg?semt=ais_hybrid&w=740&q=80",
   },
   {
     previewImageUrl:
-      "https://cdn.inappstory.ru/story/7oc/5nf/ipn/oznceu2ywv82tdlnpwriyrq/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=38903958",
+      "https://tjstakeandbakepizza.com/wp-content/uploads/2022/07/totally-pizza-by-mark-masker.jpg",
   },
   {
     previewImageUrl:
-      "https://cdn.inappstory.ru/story/q0t/flg/0ph/xt67uw7kgqe9bag7spwkkyw/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=2941222737",
+      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/instagram-stories-pizza-design-template-bede39db873f529569beb47410328aa2_screen.jpg?ts=1637019209",
   },
   {
     previewImageUrl:
-      "https://cdn.inappstory.ru/story/lza/rsp/2gc/xrar8zdspl4saq4uajmso38/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=4207486284",
+      "https://p16-capcut-sign-useast5.capcutcdn-us.com/tos-useast5-v-2795c799-tx/oYrByAFiTYgkarWARVAqdIQAEA04XIrpABPia~tplv-4d650qgzx3-1:250:0.webp?lk3s=44acef4b&x-expires=1800155148&x-signature=y2cEJ4FdNtP3ZIRhHj2A7imJslg%3D",
   },
 ];
 
