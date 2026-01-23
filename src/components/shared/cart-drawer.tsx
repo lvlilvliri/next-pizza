@@ -34,7 +34,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
   const onClickCountButton = (
     id: number,
     quantity: number,
-    type: "plus" | "minus"
+    type: "plus" | "minus",
   ) => {
     const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
     updateItemQuantity(id, newQuantity);
@@ -47,7 +47,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
           <div
             className={cn(
               "flex flex-col h-full",
-              !totalAmount && "justify-center"
+              !totalAmount && "justify-center",
             )}
           >
             {totalAmount > 0 && (
@@ -60,7 +60,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
             )}
 
             {totalAmount === 0 && (
-              <div className="flex flex-col items-center justify-center w-72 mx-auto">
+              <div className="flex flex-col items-center justify-center sm:w-72 mx-auto">
                 <Image
                   src="/assets/images/empty-box.png"
                   alt="Empty cart"
@@ -77,7 +77,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
                   Add at least one pizza <br /> to complete your order
                 </p>
 
-                <SheetClose>
+                <SheetClose asChild>
                   <Button className="w-56 h-12 text-base" size="lg">
                     <ArrowLeft className="w-5 mr-2" />
                     Go back to shop
@@ -100,7 +100,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
                             ? getCartItemDetails(
                                 item.pizzaType as PizzaType,
                                 item.pizzaSize as PizzaSize,
-                                item.ingredients
+                                item.ingredients,
                               )
                             : ""
                         }

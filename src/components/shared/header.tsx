@@ -14,6 +14,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useMedia } from "react-use";
 
 interface Props {
   className?: string;
@@ -26,6 +27,9 @@ export const Header: React.FC<Props> = ({
   hasSearch = true,
   hasCartButton = true,
 }) => {
+  const isMediumScreen = useMedia("(min-width: 768px)");
+  const isSmallScreen = useMedia("(min-width: 640px)");
+
   const router = useRouter();
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
@@ -50,7 +54,7 @@ export const Header: React.FC<Props> = ({
 
   return (
     <header className={cn(" border-b", className)}>
-      <Container className="flex items-center justify-between py-8">
+      <Container className="flex items-center justify-between  pt-8 md:pt-8 md:pb-8 pb-4">
         {/* Left part */}
         <Link href="/">
           <div className="flex items-center gap-4">
@@ -65,7 +69,7 @@ export const Header: React.FC<Props> = ({
         </Link>
 
         {/* Middle part */}
-        {hasSearch && (
+        {hasSearch && isMediumScreen && (
           <div className="mx-10 flex-1">
             <SearchInput />
           </div>
@@ -78,13 +82,23 @@ export const Header: React.FC<Props> = ({
             onClose={() => setOpenAuthModal(false)}
           />
           <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-          {hasCartButton && (
+          {hasCartButton && isSmallScreen && (
             <div>
               <CartButton />
             </div>
           )}
         </div>
       </Container>
+      {hasSearch && !isMediumScreen && (
+        <div className="flex-1 px-5 pb-4">
+          <SearchInput />
+        </div>
+      )}
+      {hasCartButton && !isSmallScreen && (
+        <div>
+          <CartButton showTotalCost={false} />
+        </div>
+      )}
     </header>
   );
 };
