@@ -27,8 +27,9 @@ export const Header: React.FC<Props> = ({
   hasSearch = true,
   hasCartButton = true,
 }) => {
-  const isMediumScreen = useMedia("(min-width: 768px)");
-  const isSmallScreen = useMedia("(min-width: 640px)");
+  const isMediumScreen = useMedia("(min-width: 1024px)", false);
+  const isSmallScreen = useMedia("(min-width: 640px)", false);
+  const isVerySmallScreen = useMedia("(min-width: 365px)", false);
 
   const router = useRouter();
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
@@ -54,16 +55,18 @@ export const Header: React.FC<Props> = ({
 
   return (
     <header className={cn(" border-b", className)}>
-      <Container className="flex items-center justify-between  pt-8 md:pt-8 md:pb-8 pb-4">
+      <Container className="flex items-center justify-between  pt-8 lg:pt-8 lg:pb-8 pb-4">
         {/* Left part */}
         <Link href="/">
           <div className="flex items-center gap-4">
             <Image src="/logo.png" alt="Logo" width={35} height={35} />
             <div>
               <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
-              <p className="text-sm text-gray-400 leading-3">
-                it doesn&apos;t get any tastier
-              </p>
+              {isVerySmallScreen && (
+                <p className="text-sm text-gray-400 leading-3">
+                  it doesn&apos;t get any tastier
+                </p>
+              )}
             </div>
           </div>
         </Link>

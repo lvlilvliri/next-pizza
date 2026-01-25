@@ -46,13 +46,12 @@ export const SortPopup: React.FC<Props> = ({ className }) => {
         <button
           type="button"
           className={cn(
-            "inline-flex items-center gap-1 bg-gray-50 px-5 h-[52px] rounded-2xl cursor-pointer",
-            className
+            "flex  items-center gap-1 bg-gray-50 px-5 h-[52px] rounded-2xl cursor-pointer ",
+            className,
           )}
         >
-          <ArrowUpDown size={16} />
           <b>Sort by:</b>
-          <b className="text-primary">{activeOption.label}</b>
+          <b className="text-primary"> {activeOption.label}</b>
         </button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[220px] p-2">
@@ -65,7 +64,7 @@ export const SortPopup: React.FC<Props> = ({ className }) => {
               className={cn(
                 "flex w-full items-center justify-between rounded-md px-3 py-2 text-sm hover:bg-gray-50",
                 option.value === activeOption.value &&
-                  "bg-gray-100 text-primary"
+                  "bg-gray-100 text-primary",
               )}
             >
               <span>{option.label}</span>

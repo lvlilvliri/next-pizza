@@ -7,6 +7,7 @@ import {
   ProductReady,
   TopbarSkeleton,
   ProductsGroupListSkeleton,
+  SortPopupWrapper,
 } from "@/components/shared";
 import {} from "@/components/shared/skeletons/topbar-skeleton";
 import { GetSearchParams } from "@/lib/find-pizzas";
@@ -29,10 +30,11 @@ export default async function Home({
 
       <Stories />
       <Container className="pb-14 mt-10">
-        <div className="flex gap-[60px]">
+        <div className="md:flex gap-[60px]">
           {/* filtration */}
-          <div className="w-[250px]">
+          <div className="md:w-[250px] md:block flex justify-between w-full md:mb-0 mb-8">
             <FiltersWrapper />
+            <SortPopupWrapper className="block md:hidden" />
           </div>
           <Suspense fallback={<ProductsGroupListSkeleton />}>
             <ProductReady searchParams={searchParams} />

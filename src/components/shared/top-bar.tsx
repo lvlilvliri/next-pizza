@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import React, { Suspense } from "react";
 import { Container } from "./container";
 import { Categories, FilterTopBar, SortPopupWrapper } from "./index";
-import { Category } from "@prisma/client";
 import { findPizzas } from "@/lib";
 import { GetSearchParams } from "@/lib/find-pizzas";
 
@@ -23,14 +22,13 @@ export const TopBar: React.FC<Props> = async ({ className, searchParams }) => {
     >
       <Container className="flex flex-col">
         <div className="flex items-center justify-between">
-          <Suspense fallback={<div>Loading categories...</div>}>
-            <Categories
-              items={categories.filter(
-                (category) => category.products.length > 0,
-              )}
-            />
-          </Suspense>
-          <SortPopupWrapper />
+          <Categories
+            items={categories.filter(
+              (category) => category.products.length > 0,
+            )}
+          />
+
+          <SortPopupWrapper className="md:block hidden" />
         </div>
         <div>
           <FilterTopBar />

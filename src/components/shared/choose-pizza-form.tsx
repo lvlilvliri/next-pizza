@@ -52,7 +52,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     type,
     size,
     selectedIngredients,
-    ingredients
+    ingredients,
   );
 
   const handleClickAdd = () => {
@@ -62,9 +62,16 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   };
 
   return (
-    <div className={cn("flex flex-1", className)}>
-      <PizzaImage imageUrl={imageUrl} alt={name} size={size}></PizzaImage>
-      <div className="w-[490px] bg-[#f7f6f5] p-7">
+    <div
+      className={cn("flex  xl:flex-row flex-col overflow-y-auto", className)}
+    >
+      <PizzaImage
+        imageUrl={imageUrl}
+        alt={name}
+        size={size}
+        className={cn("xl:h-full min-h-[420px]")}
+      ></PizzaImage>
+      <div className="xl:w-[490px] w-full bg-[#f7f6f5] p-7">
         <Title text={name} size="md" className="font-extrabold mb-1" />
         <p className="text-gray-400">{textDetails}</p>
 
@@ -81,13 +88,13 @@ export const ChoosePizzaForm: React.FC<Props> = ({
           />
         </div>
 
-        <div className="bg-gray-50 p-5 rounded-md h-[420px] overflow-auto scrollbar mt-5">
+        <div className="bg-gray-50 p-5 rounded-md xl:h-[420px] h-fit overflow-auto scrollbar mt-5">
           <Title
             text="Add to taste"
             size="sm"
             className="font-extrabold"
           ></Title>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="xl:grid xl:grid-cols-3 flex flex-wrap justify-evenly   xl:gap-3 gap-2">
             {ingredients.map((ingredient) => (
               <IngredientList
                 imageUrl={ingredient.imageUrl}

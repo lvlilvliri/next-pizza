@@ -34,7 +34,7 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
   // Цена
   if ((prices.priceFrom ?? 0) > 0 || (prices.priceTo ?? 500) < 500) {
     filters.push({
-      label: `Цена: ${prices.priceFrom} – ${prices.priceTo} грн`,
+      label: `Price: ${prices.priceFrom} – ${prices.priceTo} uah`,
       onRemove: () => {
         (setPrice("priceFrom", 0), setPrice("priceTo", 500));
       },
@@ -44,7 +44,7 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
   // Типы пиццы
   pizzaTypes.forEach((type) => {
     filters.push({
-      label: `Тип теста: ${type === "1" ? "Тонкое" : "Традиционное"}`,
+      label: `Dough: ${type === "1" ? "Thin" : "Traditional"}`,
       onRemove: () => togglePizzaType(type),
     });
   });
@@ -52,7 +52,7 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
   // Размеры
   sizes.forEach((size) => {
     filters.push({
-      label: `Размер: ${size} см`,
+      label: `Size: ${size} cm`,
       onRemove: () => toggleSize(size),
     });
   });
@@ -61,7 +61,7 @@ export const FilterTopBar: React.FC<Props> = ({ className }) => {
   selectedValues.forEach((id) => {
     const ingredient = items.find((item) => item.value === id);
     filters.push({
-      label: `Ингредиент: ${ingredient?.text || id}`,
+      label: ` ${ingredient?.text || id}`,
       onRemove: () => removeSelectedValue(id),
     });
   });

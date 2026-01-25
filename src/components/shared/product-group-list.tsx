@@ -4,7 +4,7 @@ import React, { use } from "react";
 import { cn } from "@/lib/utils";
 import { Title } from "./title";
 import { ProductCard } from "./product-card";
-import { useIntersection } from "react-use";
+import { useIntersection, useMedia } from "react-use";
 import { useCategoryStore } from "@/../shared/store/category";
 import { ProductWithRelations } from "../../../@types/prisma";
 
@@ -23,6 +23,9 @@ export const ProductGroupList: React.FC<Props> = ({
   listClassName,
   categoryId,
 }) => {
+  const isWide = useMedia("(max-width: 1200px)", false);
+  const isSmall = useMedia("(max-width: 880px)", false);
+
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const intersectionRef = React.useRef(null);
   // @ts-expect-error - useIntersection types are wrong
@@ -38,7 +41,14 @@ export const ProductGroupList: React.FC<Props> = ({
   return (
     <div className={cn("", className)} id={title} ref={intersectionRef}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
-      <div className={cn("grid grid-cols-3 gap-[50px]", listClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-3 gap-[50px]",
+          listClassName,
+          isWide && "grid-cols-2",
+          isSmall && "grid-cols-1",
+        )}
+      >
         {items.map((item, i) => (
           <ProductCard
             key={item.id}

@@ -58,7 +58,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
       const width = Math.min(maxWidth, Math.max(280, window.innerWidth - 32));
       const height = Math.min(
         maxHeight,
-        Math.max(320, window.innerHeight - 48)
+        Math.max(320, window.innerHeight - 48),
       );
 
       setStorySize({ width, height });
@@ -73,9 +73,10 @@ export const Stories: React.FC<Props> = ({ className }) => {
   return (
     <Container
       className={cn(
-        "flex items-center justify-between gap-2 my-10 ",
-        className
+        "flex items-center justify-between gap-2 my-10 overflow-x-auto ",
+        className,
       )}
+      // yes, we are using just overflow-x-auto here to allow scrolling on small screens . . . just a pet project after all ;)
     >
       {stories.length === 0 &&
         [...Array(6)].map((_, index) => (
