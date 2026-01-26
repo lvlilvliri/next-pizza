@@ -29,7 +29,7 @@ export const Header: React.FC<Props> = ({
 }) => {
   const isMediumScreen = useMedia("(min-width: 1024px)", false);
   const isSmallScreen = useMedia("(min-width: 640px)", false);
-  const isVerySmallScreen = useMedia("(min-width: 365px)", false);
+  const isVerySmallScreen = useMedia("(min-width: 405px)", false);
 
   const router = useRouter();
   const [openAuthModal, setOpenAuthModal] = React.useState(false);

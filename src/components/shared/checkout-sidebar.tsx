@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
-import { Package, Truck, ArrowRight } from 'lucide-react';
-import React from 'react';
-import { Button, Skeleton } from '../ui';
-import { useFormContext } from 'react-hook-form';
-import { CheckoutItemDetails } from './checkout-item-details';
-import { WhiteBlock } from './white-block';
-
+import { Package, Truck, ArrowRight } from "lucide-react";
+import React from "react";
+import { Button, Skeleton } from "../ui";
+import { useFormContext } from "react-hook-form";
+import { CheckoutItemDetails } from "./checkout-item-details";
+import { WhiteBlock } from "./white-block";
 
 const DELIVERY_PRICE = 100;
 
@@ -16,13 +15,17 @@ interface Props {
   loading?: boolean;
 }
 
-export const CheckoutSideBar: React.FC<Props> = ({ className, totalAmount, loading }) => {
+export const CheckoutSideBar: React.FC<Props> = ({
+  className,
+  totalAmount,
+  loading,
+}) => {
   const { formState } = useFormContext();
   const everyPrice = totalAmount + DELIVERY_PRICE;
-  
+
   return (
     <div className={className}>
-      <WhiteBlock className="sticky top-4 p-6">
+      <WhiteBlock className="sticky top-4 lg:p-6">
         <div className="flex flex-col gap-1">
           <span className="text-xl">Order total:</span>
           {loading ? (

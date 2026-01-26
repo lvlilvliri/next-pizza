@@ -60,7 +60,7 @@ export const ProfileForm: React.FC<Props> = ({ className, data }) => {
       />
       <FormProvider {...form}>
         <form
-          className="flex flex-col gap-5 w-96 mt-10"
+          className="flex flex-col gap-5 max-w-96 mt-10"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormInput name="email" label="E-Mail" required />

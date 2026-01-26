@@ -88,7 +88,7 @@ export default function CheckoutPage() {
   }, [totalAmount, loading, router]);
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 lg:px-5 px-2">
       <Script
         id="google-maps"
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
@@ -101,13 +101,13 @@ export default function CheckoutPage() {
       />
       <Title
         text="Placing an order"
-        className="font-extrabold mt-10 text-[36px]"
+        className="font-extrabold mt-10 lg:mb-0 mb-5 text-[36px]"
       />
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex gap-40">
+          <div className="flex lg:flex-row flex-col lg:justify-between lg:gap-5">
             {/* Left part */}
-            <div className="flex flex-col gap-10 flex-1 mb-20">
+            <div className="flex flex-col lg:gap-10 flex-1 lg:mb-20 lg:max-w-[600px] w-full">
               <CheckoutCart items={items} loading={loading} />
 
               <CheckoutPersonalForm
@@ -120,7 +120,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Right part */}
-            <div className="w-[450px]">
+            <div className="lg:max-w-[450px] w-full">
               <CheckoutSideBar
                 totalAmount={totalAmount}
                 loading={loading || submitting}
