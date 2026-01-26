@@ -72,7 +72,7 @@ export async function createOrder(data: CheckoutFormValues) {
     const orderReference =
       newOrder.id.toString() + "_" + Math.floor(Date.now() / 1000);
     const orderDate = Math.floor(Date.now() / 1000).toString();
-    const amount = String(1); // For testing purposes, set amount to 1 UAH
+    const amount = newOrder.totalAmount.toString();
     const currency = "UAH";
     const merchantDomainName = new URL(APP_URL).host;
     const serviceUrl = `${API_URL}/api/wayforpay/callback`;
@@ -86,13 +86,13 @@ export async function createOrder(data: CheckoutFormValues) {
     });
 
     const productNames = userCart.cartItems.map(
-      (item) => item.productVariant.product.name
+      (item) => item.productVariant.product.name,
     );
     const productCounts = userCart.cartItems.map((item) =>
-      item.quantity.toString()
+      item.quantity.toString(),
     );
     const productPrices = userCart.cartItems.map((item) =>
-      item.productVariant.price.toString()
+      item.productVariant.price.toString(),
     );
 
     const stringToSign = [
@@ -203,7 +203,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
       "Next Pizza / Registration code",
       VerificationTemplate({
         code,
-      })
+      }),
     );
   } catch (error) {
     console.log("[REGISTER USER]:", error);
