@@ -73,6 +73,7 @@ export async function createOrder(data: CheckoutFormValues) {
       newOrder.id.toString() + "_" + Math.floor(Date.now() / 1000);
     const orderDate = Math.floor(Date.now() / 1000).toString();
     const amount = newOrder.totalAmount.toString();
+    // you can change currency to 1 uah if needed
     const currency = "UAH";
     const merchantDomainName = new URL(APP_URL).host;
     const serviceUrl = `${API_URL}/api/wayforpay/callback`;
