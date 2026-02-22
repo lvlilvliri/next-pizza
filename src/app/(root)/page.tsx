@@ -19,7 +19,7 @@ export default async function Home({
   searchParams: Promise<GetSearchParams>;
 }) {
   return (
-    <>
+    <section>
       <Container className="mt-10">
         <Title text="All products" size="lg" className="font-extrabold" />
       </Container>
@@ -41,6 +41,6 @@ export default async function Home({
           </Suspense>
         </div>
       </Container>
-    </>
+    </section>
   );
 }

@@ -15,7 +15,7 @@ export default function HomeLayout({
 }>) {
   return (
     <main className="min-h-screen">
-      <HeaderWrapper hasSearch={false} hasCartButton={false} />
+      <HeaderWrapper hasSearch={false} />
       {children}
       {modal}
     </main>

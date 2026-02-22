@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import ReactStories from "react-insta-stories";
 import toast from "react-hot-toast";
+import EmblaCarouselStories from "./storiesEmblaCarousel/EmblaCarouselStories";
 
 interface Props {
   className?: string;
@@ -78,15 +79,18 @@ export const Stories: React.FC<Props> = ({ className }) => {
       )}
       // yes, we are using just overflow-x-auto here to allow scrolling on small screens . . . just a pet project after all ;)
     >
-      {stories.length === 0 &&
+      {stories.length === 0 ? (
         [...Array(6)].map((_, index) => (
           <div
             key={index}
             className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse"
           />
-        ))}
-
-      {stories.map((story) => (
+        ))
+      ) : (
+        <EmblaCarouselStories slides={stories} />
+      )}
+      {/* 
+stories.map((story) => (
         <img
           key={story.id}
           onClick={() => toast.error("Stories are unavailable now")}
@@ -95,7 +99,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
           width={200}
           src={story.previewImageUrl}
         />
-      ))}
+      )) */}
 
       {/* {open && (
         <div

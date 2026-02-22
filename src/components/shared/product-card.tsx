@@ -6,7 +6,6 @@ import { Button } from "../ui";
 import { Plus } from "lucide-react";
 import { Ingredient } from "@prisma/client";
 import { useMedia } from "react-use";
-import { is } from "zod/v4/locales";
 
 interface Props {
   id: number;
@@ -28,7 +27,7 @@ export const ProductCard: React.FC<Props> = ({
   const isSmall = useMedia("(max-width: 880px)", false);
   const isVerySmall = useMedia("(max-width: 435px)", false);
   return (
-    <div
+    <article
       className={cn(
         "flex flex-col max-h-[425px]  ",
 
@@ -72,6 +71,6 @@ export const ProductCard: React.FC<Props> = ({
           </div>
         </div>
       </Link>
-    </div>
+    </article>
   );
 };
