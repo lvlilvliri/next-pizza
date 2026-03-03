@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import ProductForm from "@/components/admin/ProductForm";
+import { ProductForm} from "@/components/admin/ProductForm";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }
 
 export default function EditProductPage({ params }: Props) {

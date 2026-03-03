@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
     provider = "postgresql"
+    // @ts-ignore
     url      = env("DATABASE_URL")
     directUrl = env("DATABASE_URL_UNPOOLED")
 }

@@ -13,10 +13,10 @@ async function requireAdmin() {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   await requireAdmin();
-  const id = Number(params.id);
+  const id = Number((await params).id);
   const product = await prisma.product.findUnique({
     where: { id },
     include: { variants: { select: { price: true } } },
@@ -30,10 +30,10 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   await requireAdmin();
-  const id = Number(params.id);
+  const id = Number((await params).id);
   const body = await req.json();
   const { name, price, categoryId, imageUrl } = body;
 
@@ -85,10 +85,10 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   await requireAdmin();
-  const id = Number(params.id);
+  const id = Number((await params).id);
   await prisma.product.delete({ where: { id } });
   return NextResponse.json({ success: true });
 }

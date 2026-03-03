@@ -11,7 +11,7 @@ interface Props {
   isPizza: boolean;
 }
 
-export default function ProductForm({ initialData, onSubmit, isPizza }: Props) {
+export function ProductForm({ initialData, onSubmit, isPizza }: Props) {
   const [name, setName] = useState(initialData?.name || "");
   // keep prices as strings since they are bound to text inputs
   const [price, setPrice] = useState<string[]>([]);

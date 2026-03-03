@@ -1,6 +1,6 @@
 "use client";
 
-import ProductForm from "@/components/admin/ProductForm";
+import {ProductForm} from "@/components/admin/ProductForm";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
