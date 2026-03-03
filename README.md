@@ -12,8 +12,7 @@ A comprehensive web application for pizza ordering and delivery, built with mode
 - **Payment Integration** – WayForPay payment gateway integration
 - **Email Notifications** – Order confirmation emails powered by Resend
 - **User Profile** – Order history and account management
-- **Admin Dashboard** – Optional management interface for orders
-- **Admin CRUD example** – Start implementation for products with image upload (accessible under `/admin`)
+- **Admin Dashboard** – Optional management interface for products and orders
 - **Admin CRUD example** – Start implementation for products with image upload (accessible under `/admin`)
 
 ## 🛠 Tech Stack
@@ -104,12 +103,14 @@ To try the new admin interface:
    npm run dev
    ```
 3. Login using the credentials above, then visit <https://localhost:3000/admin>.
-   - Create, edit and delete products.
+   - View, create, edit and delete products.
+   - Browse incoming orders under the **Orders** section.
    - Upload a single image per product; files are stored in `public/uploads`.
 
 The UI lives under `src/app/(dashboard)/admin` and uses simple API routes in
-`src/app/api/admin/*`. Feel free to extend with validation, categories, or
-switch to S3 signed URLs for uploads.
+`src/app/api/admin/*`. Orders can be viewed via `/admin/orders` and are backed
+by `src/app/api/admin/orders/route.ts`. Feel free to extend with validation, 
+categories, or switch to S3 signed URLs for uploads.
 
 ## 🏗 Architectural Highlights
 
@@ -146,7 +147,10 @@ TypeScript + Zod validation ensures data consistency across the entire applicati
 - Image optimization via Next.js Image component
 - Strategic caching at multiple levels
 - Code splitting and lazy loading
+### Cron & Deployment Notes
 
+- An example cron route (`/api/cron/seed`) is added to run daily seeds on Vercel.
+  Configure `CRON_SECRET` and `vercel.json` as shown in repo.
 ## 📝 Core Functionality Examples
 
 ### Shopping Cart Management

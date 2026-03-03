@@ -13,6 +13,14 @@ export type ProductDashBoard = {
   imageUrl: string;
 };
 
+export type OrderDashBoard = {
+  id: number;
+  totalAmount: number;
+  status: string;
+  email: string;
+  createdAt: string;
+};
+
 const handleDelete = async (id: number) => {
   await fetch(`/api/admin/products/${id}`, {
     method: "DELETE",
@@ -85,6 +93,45 @@ export const columns: ColumnDef<ProductDashBoard>[] = [
           </button>
         </div>
       );
+    },
+  },
+];
+
+export const orderColumns: ColumnDef<OrderDashBoard>[] = [
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "totalAmount",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Total
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const amt: number = row.getValue("totalAmount");
+      return <div className="font-medium">UAH {amt.toFixed(2)}</div>;
+    },
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Created",
+    cell: ({ row }) => {
+      const date: string = row.getValue("createdAt");
+      return <div>{new Date(date).toLocaleString()}</div>;
     },
   },
 ];
