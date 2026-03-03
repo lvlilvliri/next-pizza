@@ -13,6 +13,8 @@ A comprehensive web application for pizza ordering and delivery, built with mode
 - **Email Notifications** – Order confirmation emails powered by Resend
 - **User Profile** – Order history and account management
 - **Admin Dashboard** – Optional management interface for orders
+- **Admin CRUD example** – Start implementation for products with image upload (accessible under `/admin`)
+- **Admin CRUD example** – Start implementation for products with image upload (accessible under `/admin`)
 
 ## 🛠 Tech Stack
 
@@ -86,6 +88,28 @@ prisma/
 ├── prisma-client.ts         # Prisma configuration
 └── seed.ts                  # Database seeding
 ```
+
+### ⚙️ Admin Panel & CRUD Setup
+
+To try the new admin interface:
+
+1. Run the database migrations and seed data:
+   ```bash
+   npx prisma migrate dev --name init
+   npm run seed
+   ```
+   (The seed script already creates an admin user `admin@admin.com` / `admin`.)
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Login using the credentials above, then visit <https://localhost:3000/admin>.
+   - Create, edit and delete products.
+   - Upload a single image per product; files are stored in `public/uploads`.
+
+The UI lives under `src/app/(dashboard)/admin` and uses simple API routes in
+`src/app/api/admin/*`. Feel free to extend with validation, categories, or
+switch to S3 signed URLs for uploads.
 
 ## 🏗 Architectural Highlights
 

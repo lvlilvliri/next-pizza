@@ -9,3 +9,4 @@ export { Skeleton } from "./skeleton";
 export { Slider } from "./slider";
 export { RangeSlider } from "./range-slider";
 export { Textarea } from "./textarea";
+export * from "./table";

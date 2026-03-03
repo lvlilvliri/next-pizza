@@ -81,7 +81,6 @@ export default function CheckoutPage() {
   };
 
   useEffect(() => {
-    console.log("totalAmount", totalAmount, "loading", loading);
     if (totalAmount === 0 && !loading) {
       router.push("/");
     }

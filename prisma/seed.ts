@@ -31,7 +31,7 @@ const generateProductItem = ({
   } as Prisma.ProductVariantUncheckedCreateInput;
 };
 
-async function up() {
+export async function up() {
   await prisma.user.createMany({
     data: [
       {
