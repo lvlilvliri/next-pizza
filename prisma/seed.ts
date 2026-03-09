@@ -238,7 +238,7 @@ export async function down() {
   await prisma.$executeRaw`TRUNCATE TABLE "Story" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "StoryItems" RESTART IDENTITY CASCADE`;
 }
-async function main() {
+export async function main() {
   try {
     await down();
     await up();
@@ -247,12 +247,12 @@ async function main() {
   }
 }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+// main()
+//   .then(async () => {
+//     await prisma.$disconnect();
+//   })
+//   .catch(async (e) => {
+//     console.error(e);
+//     await prisma.$disconnect();
+//     process.exit(1);
+//   });
