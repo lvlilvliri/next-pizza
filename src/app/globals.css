@@ -4,6 +4,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 8rem;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
@@ -83,7 +84,7 @@ html {
 
 .pac-container {
   border-radius: 12px !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
   font-family: "Inter", sans-serif !important;
   font-size: 15px !important;
   z-index: 9999 !important; /* чтобы не перекрывался */
@@ -122,9 +123,8 @@ html {
   @apply bg-primary !important;
 }
 #nprogress .peg {
- @apply shadow-md shadow-primary !important;
+  @apply shadow-md shadow-primary !important;
 }
 #nprogress .spinner-icon {
   @apply border-t-primary border-l-primary !important;
-  
 }

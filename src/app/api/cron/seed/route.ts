@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { up } from "../../../../../prisma/seed";
+import { up, down } from "../../../../../prisma/seed";
 
-// optional: protect with a secret query param
 const SECRET = process.env.CRON_SECRET;
 
 export async function GET(req: NextRequest) {
@@ -14,6 +13,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    await down();
     await up();
     return NextResponse.json({ success: true });
   } catch (err: any) {
