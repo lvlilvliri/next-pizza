@@ -2,9 +2,16 @@
   max-width: 100%;
   margin: auto;
   --slide-height: 19rem;
-  --slide-spacing: 1rem;
-  --slide-size: 17%;
+  --slide-spacing: 1vw;
+  --slide-size: 18%;
 }
+
+@media screen and (max-width: 768px) {
+  .embla {
+    --slide-size: 25%;
+  }
+}
+
 .embla__viewport {
   overflow: hidden;
 }

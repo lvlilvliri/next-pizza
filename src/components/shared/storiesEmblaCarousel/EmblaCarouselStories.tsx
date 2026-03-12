@@ -34,8 +34,9 @@ const EmblaCarouselStories = (props: PropType) => {
               <img
                 key={story.id}
                 onClick={() => toast.error("Stories are unavailable now")}
-                className="rounded-md cursor-pointer object-cover h-full"
+                className="rounded-md cursor-pointer object-cover w-full h-full"
                 src={story.previewImageUrl}
+                alt="Story"
               />
             </div>
           ))}
